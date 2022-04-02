@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Colors
 NC='\033[0m'
@@ -14,6 +14,16 @@ if [[ $EUID -ne 0 ]]; then
 echo -e "${RED}[+] SORRY, PLEASE RUN THIS SCRIPT USER ROOT!${NC}"
 echo -e ""
 exit 1
+fi
+
+# Install pip lolcat
+#apt install python3-pip -y > /dev/null 2>&1
+#pip install lolcat > /dev/null 2>&1
+if [[ "${ID}" != "ubuntu" ]]; then 
+snap install lolcal > /dev/null 2>&1
+elif [[ "${ID}" != "debian" ]]; then
+apt install python3-pip && pip install lolcat > /dev/null 2>&1
+#systemctl start systemd-timesyncd > /dev/null 2>&1
 fi
 
 # Edit /etc/hosts
@@ -35,16 +45,6 @@ ${ip} cloud-server cloud-server
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters 
 EOF
-
-# Install pip lolcat
-#apt install python3-pip -y > /dev/null 2>&1
-#pip install lolcat > /dev/null 2>&1
-if [[ "${ID}" != "ubuntu" ]]; then 
-snap install lolcal > /dev/null 2>&1
-elif [[ "${ID}" != "debian" ]]; then
-apt install python3-pip && pip install lolcat > /dev/null 2>&1
-#systemctl start systemd-timesyncd > /dev/null 2>&1
-fi
 
 # Check Updates
 clear
