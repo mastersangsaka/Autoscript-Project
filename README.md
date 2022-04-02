@@ -6,7 +6,10 @@
 ![Shell Script](https://img.shields.io/badge/Bash_Script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
 
 # Installation
+
 Run the script as *root* :
-```Bash
-wget https://raw.githubusercontent.com/mastersangsaka/Autoscript-Project/main/setup.sh && chmod +x setup.sh && ./setup.sh
+```bash
+wget https://raw.githubusercontent.com/mastersangsaka/Autoscript-Project/main/setup.sh 
+chmod +x setup.sh 
+./setup.sh
 ```
