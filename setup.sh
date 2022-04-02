@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Colors
 NC='\033[0m'
@@ -91,24 +91,24 @@ echo -e ""
 echo -e "${BLUE}[+] INSTALLING PACKAGES${NC}"
 sleep 1 
 apt install curl -y > /dev/null 2>&1
-echo -e "${GREEN}[i] CURL INSTALLED${NC}"
+echo -e "${GREEN}[!] CURL INSTALLED${NC}"
 sleep 1
 apt install wget -y > /dev/null 2>&1
-echo -e "${GREEN}[i] WGET INSTALLED${NC}"
+echo -e "${GREEN}[!] WGET INSTALLED${NC}"
 sleep 1
 apt install git -y > /dev/null 2>&1
-echo -e "${GREEN}[i] GIT INSTALLED${NC}"
+echo -e "${GREEN}[!] GIT INSTALLED${NC}"
 apt install zip -y > /dev/null 2>&1
-echo -e "${GREEN}[i] zip INSTALLED${NC}"
+echo -e "${GREEN}[!] zip INSTALLED${NC}"
 sleep 1
 apt install unzip -y > /dev/null 2>&1
-echo -e "${GREEN}[i] UNZIP INSTALLED${NC}"
+echo -e "${GREEN}[!] UNZIP INSTALLED${NC}"
 sleep 1
 apt install tar -y > /dev/null 2>&1
-echo -e "${GREEN}[i] TAR INSTALLED${NC}"
+echo -e "${GREEN}[!] TAR INSTALLED${NC}"
 sleep 1
 apt install ufw -y > /dev/null 2>&1
-echo -e "${GREEN}[i] UFW INSTALLED${NC}"
+echo -e "${GREEN}[!] UFW INSTALLED${NC}"
 sleep 2
 
 # Reboot System
