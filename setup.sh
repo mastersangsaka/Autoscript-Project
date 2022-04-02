@@ -35,12 +35,16 @@ ${ip} cloud-server cloud-server
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters 
 EOF
-sleep 1
 
 # Install pip lolcat
-apt install python3-pip -y > /dev/null 2>&1
-pip install lolcat > /dev/null 2>&1
-sleep 1
+#apt install python3-pip -y > /dev/null 2>&1
+#pip install lolcat > /dev/null 2>&1
+if [[ "${ID}" != "ubuntu" ]]; then 
+snap install lolcal > /dev/null 2>&1
+elif [[ "${ID}" != "debian" ]]; then
+apt install python3-pip && pip install lolcat > /dev/null 2>&1
+#systemctl start systemd-timesyncd > /dev/null 2>&1
+fi
 
 # Check Updates
 clear
