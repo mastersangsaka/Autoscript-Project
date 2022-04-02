@@ -9,7 +9,5 @@
 
 Run the script as *root* :
 ```bash
-wget https://raw.githubusercontent.com/mastersangsaka/Autoscript-Project/main/setup.sh 
-chmod +x setup.sh 
-./setup.sh
+wget https://raw.githubusercontent.com/mastersangsaka/Autoscript-Project/main/setup.sh && chmod +x setup.sh && ./setup.sh
 ```
