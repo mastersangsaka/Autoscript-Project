@@ -1,29 +1,26 @@
 #!/bin/bash
 
-# Colors
-NC='\033[0m'
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-
-# Check System
-clear
-echo -e ""
-echo -e "${BLUE}WAIT SYSTEM CHECK${NC}"
-if [[ $EUID -ne 0 ]]; then
-echo -e "${RED}[+] SORRY, PLEASE RUN THIS SCRIPT USER ROOT!${NC}"
-echo -e ""
-exit 1
-fi
-sleep 1
-apt install python3-pip -y > /dev/null 2>&1
-pip install lolcat -y > /dev/null 2>&1
-echo -e "${GREEN}[!] OK${NC}"
-sleep 1
-
-# Edit /etc/hosts
+os=$(uname -v | awk '{print $3}')
+id=$(USER)
 ip=$(hostname -I | awk '{print $1}')
+
+# Color
+NC='\033[0m'
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+BLUE='\033[1;34m'
+ORANGE='\033[0;33m'
+
+# Check root
+if [[ $id != "root" ]]; then 
+   echo -e "${RED}Please run this script as user root!${NC}"
+   exit 1 
+fi
+
+# Install 
+apt install lolcat -y > /dev/null 2>&1
+
+hosts() {
 rm -r /etc/hosts
 cat > /etc/hosts << EOF
 # Your system has configured 'manage_etc_hosts' as True.
@@ -41,95 +38,128 @@ ${ip} cloud-server cloud-server
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters 
 EOF
+}
 
-# Check Updates
-clear
-echo -e "=====================================" | lolcat
-echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat
-echo -e "=====================================" | lolcat
+update() {
 echo -e ""
-echo -e "${BLUE}[+] CHECK FOR UPDATES${NC}"
+echo -e "=====================================" | lolcat -a
+echo -e "  AUTOSCRIPT VPS BY MASTER SANGSAKA  " | lolcat -a
+echo -e "=====================================" | lolcat -a
+echo -e ""
+echo -e "${BLUE}>> CHECK FOR UPDATES${NC}"
 sleep 1
 apt update > /dev/null 2>&1
-echo -e "${BLUE}[+] INSTALLING UPDATES${NC}"
+echo -e "${BLUE}>> INSTALLING UPDATES${NC}"
 sleep 1
 apt upgrade -y > /dev/null 2>&1
-sleep 1
-apt autoremove --purge -y> /dev/null 2>&1
 echo -e ""
-echo -e "${GREEN}[!] PACKAGES UPDATED${NC}"
-sleep 2
+echo -e "${GREEN}SYSTEM UPDATES SUCCESSFUL${NC}"
+}
 
-# Set Timezone
-clear
-echo -e "=====================================" | lolcat 
-
-echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat
-echo -e "=====================================" | lolcat
+timezone() {
 echo -e ""
-echo -e "${BLUE}[+] SET LOCAL TIMEZONE${NC}"
+echo -e "=====================================" | lolcat -a
+echo -e "  AUTOSCRIPT VPS BY MASTER SANGSAKA  " | lolcat -a
+echo -e "=====================================" | lolcat -a
+echo -e ""
+echo -e "${BLUE}>> SET TIMEZONE${NC}"
 sleep 1
 ln -sf /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime > /dev/null 2>&1
-if [[ "${ID}" != "ubuntu" ]]; then 
+sleep 1
+if [[ $os = "Ubuntu" ]]; then 
 systemctl start systemd-timesyncd > /dev/null 2>&1
-elif [[ "${ID}" != "debian" ]]; then
+fi
+sleep 1
+if [[ $os = "Debian" ]]; then
 apt purge ntp -y > /dev/null 2>&1
 systemctl start systemd-timesyncd > /dev/null 2>&1
 fi
 timedatectl
+sleep 1
 date
+sleep 1
 echo -e ""
-echo -e "${GREEN}[!] TIMEZONE SET SUCCESSFUL${NC}"
-sleep 2
+echo -e "${GREEN}TIMEZONE SYNC SUCCESSFUL${NC}"
+}
 
-# Install Packages
-clear
-echo -e "=====================================" | lolcat
-echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat
-echo -e "=====================================" | lolcat
+package() {
 echo -e ""
-echo -e "${BLUE}[+] INSTALLING PACKAGES${NC}"
-sleep 1 
+echo -e "=====================================" | lolcat -a
+echo -e "  AUTOSCRIPT VPS BY MASTER SANGSAKA  " | lolcat -a
+echo -e "=====================================" | lolcat -a
+echo -e ""
+echo -e "${BLUE}>> INSTALLING PACKAGES${NC}"
+sleep 1
 apt install curl -y > /dev/null 2>&1
-echo -e "${GREEN}[!] CURL INSTALLED${NC}"
+sleep 1
+echo -e ""
+echo -e "${GREEN}CURL INSTALLED${NC}"
 sleep 1
 apt install wget -y > /dev/null 2>&1
-echo -e "${GREEN}[!] WGET INSTALLED${NC}"
 sleep 1
-apt install git -y > /dev/null 2>&1
-echo -e "${GREEN}[!] GIT INSTALLED${NC}"
+echo -e "${GREEN}WGET INSTALLED${NC}"
+sleep 1
+apt install gir -y > /dev/null 2>&1
+sleep 1
+echo -e "${GREEN}GIT INSTALLED${NC}"
+sleep 1
 apt install zip -y > /dev/null 2>&1
-echo -e "${GREEN}[!] zip INSTALLED${NC}"
+sleep 1
+echo -e "${GREEN}ZIP INSTALLED${NC}"
 sleep 1
 apt install unzip -y > /dev/null 2>&1
-echo -e "${GREEN}[!] UNZIP INSTALLED${NC}"
+sleep 1
+echo -e "${GREEN}UNZIP INSTALLED${NC}"
 sleep 1
 apt install tar -y > /dev/null 2>&1
-echo -e "${GREEN}[!] TAR INSTALLED${NC}"
+sleep 1
+echo -e "${GREEN}TAR INSTALLED${NC}"
 sleep 1
 apt install ufw -y > /dev/null 2>&1
-echo -e "${GREEN}[!] UFW INSTALLED${NC}"
-sleep 2
-
-# Reboot System
-clear
-echo -e "=====================================" | lolcat
-echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat
-echo -e "=====================================" | lolcat
-echo -e ""
-echo -e "${GREEN}[!] AUTOSCRIPT INSTALLATION DONE${NC}"
-sleep 2
-echo -e ""
-echo -e "${BLUE}[+] SYSTEM REBOOT IN 5${NC}"
-sleep 1 
-echo -e "${BLUE}[+] SYSTEM REBOOT IN 4${NC}"
-sleep 1 
-echo -e "${BLUE}[+] SYSTEM REBOOT IN 3${NC}"
-sleep 1 
-echo -e "${BLUE}[+] SYSTEM REBOOT IN 2${NC}"
-sleep 1 
-echo -e "${BLUE}[+] SYSTEM REBOOT IN 1${NC}"
 sleep 1
+echo -e "${GREEN}UFW INSTALLED${NC}"
+sleep 1
+apt install nginx -y > /dev/null 2>&1
+sleep 1
+systemctl enable nginx > /dev/null 2>&1
+sleep 1
+echo -e "${GREEN}NGINX INSTALLED${NC}"
+}
+
+clear
+if [[ $USER != "root" ]]; then
+   echo -e "Plese run as user root!"
+   exit 1
+fi
+
+clear
 echo -e ""
-echo -e "${GREEN}[!] REBOOT NOW${NC}" 
-reboot > /dev/null 2>&1
+echo -e "${BLUE}>> AUTOSCRIPT WILL START NOW${NC}"
+sleep 3
+clear
+host
+sleep 1
+clear
+update
+sleep 1 
+clear
+timezone
+sleep 1 
+clear
+package
+sleep 1
+clear
+echo -e ""
+echo -e "${GREEN}AUTOSCRIPT INSTALLATION DONE${NC}"
+sleep 1
+echo -e "${GREEN}SYSTEM REBOOT IN${NC} ${BLUE}5${NC} ${GREEN}SECONDS${NC}"
+sleep 1
+echo -e "${BLUE}4${NC}"
+sleep 1 
+echo -e "${BLUE}3${NC}"
+sleep 1 
+echo -e "${BLUE}2${NC}"
+sleep 1 
+echo -e "${BLUE}1${NC}"
+sleep 1 
+reboot
