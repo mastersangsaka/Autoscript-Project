@@ -48,9 +48,9 @@ fi
 
 # Check Updates
 clear
-echo -e "=====================================" | lolcat -a
-echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat -a
-echo -e "=====================================" | lolcat -a
+echo -e "=====================================" | lolcat
+echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat
+echo -e "=====================================" | lolcat
 echo -e ""
 echo -e "${BLUE}[+] CHECK FOR UPDATES${NC}"
 sleep 1
@@ -66,9 +66,10 @@ sleep 2
 
 # Set Timezone
 clear
-echo -e "=====================================" | lolcat -a
-echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat -a
-echo -e "=====================================" | lolcat -a
+echo -e "=====================================" | lolcat 
+
+echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat
+echo -e "=====================================" | lolcat
 echo -e ""
 echo -e "${BLUE}[+] SET LOCAL TIMEZONE${NC}"
 sleep 1
@@ -87,9 +88,9 @@ sleep 2
 
 # Install Packages
 clear
-echo -e "=====================================" | lolcat -a
-echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat -a
-echo -e "=====================================" | lolcat -a
+echo -e "=====================================" | lolcat
+echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat
+echo -e "=====================================" | lolcat
 echo -e ""
 echo -e "${BLUE}[+] INSTALLING PACKAGES${NC}"
 sleep 1 
@@ -116,9 +117,9 @@ sleep 2
 
 # Reboot System
 clear
-echo -e "=====================================" | lolcat -a
-echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat -a
-echo -e "=====================================" | lolcat -a
+echo -e "=====================================" | lolcat
+echo -e "    AUTOSCRIPT BY MASTER SANGSAKA    " | lolcat
+echo -e "=====================================" | lolcat
 echo -e ""
 echo -e "${GREEN}[!] AUTOSCRIPT INSTALLATION DONE${NC}"
 sleep 2
