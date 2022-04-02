@@ -16,10 +16,11 @@ echo -e "${RED}[+] SORRY, PLEASE RUN THIS SCRIPT USER ROOT!${NC}"
 echo -e ""
 exit 1
 fi
+sleep 1
 if [[ "${ID}" != "ubuntu" ]]; then 
 snap install lolcal > /dev/null 2>&1
 else
-apt install python3-pip && pip install lolcat > /dev/null 2>&1
+apt install python3-pip -y && pip install lolcat -y > /dev/null 2>&1
 fi
 echo -e "${GREEN}[!] OK${NC}"
 
