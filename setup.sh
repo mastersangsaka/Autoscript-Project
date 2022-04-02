@@ -1,18 +1,19 @@
 #!/bin/bash
 
 os=$(uname -v | awk '{print $3}')
-id=$(USER)
 ip=$(hostname -I | awk '{print $1}')
+host=$(hostname)
+domain=$(hostname -f)
 
 # Color
 NC='\033[0m'
 RED='\033[1;31m'
 GREEN='\033[1;32m'
-BLUE='\033[1;34m'
-ORANGE='\033[0;33m'
+CYAN='\033[0;36m'
+ORANGE='\033[1;33m'
 
 # Check root
-if [[ $id != "root" ]]; then 
+if [[ $USER != "root" ]]; then 
    echo -e "${RED}Please run this script as user root!${NC}"
    exit 1 
 fi
@@ -30,7 +31,7 @@ cat > /etc/hosts << EOF
 # b.) change or remove the value of 'manage_etc_hosts' in
 #     /etc/cloud/cloud.cfg or cloud-config from user-data
 #
-${ip} cloud-server cloud-server
+${ip} ${domain} ${host}
 127.0.0.1 localhost
 
 # The following lines are desirable for IPv6 capable hosts
@@ -46,14 +47,14 @@ echo -e "=====================================" | lolcat -a
 echo -e "  AUTOSCRIPT VPS BY MASTER SANGSAKA  " | lolcat -a
 echo -e "=====================================" | lolcat -a
 echo -e ""
-echo -e "${BLUE}>> CHECK FOR UPDATES${NC}"
+echo -e "${CYAN}[+] CHECK FOR UPDATES${NC}"
 sleep 1
 apt update > /dev/null 2>&1
-echo -e "${BLUE}>> INSTALLING UPDATES${NC}"
+echo -e "${CYAN}[+] INSTALLING UPDATES${NC}"
 sleep 1
 apt upgrade -y > /dev/null 2>&1
 echo -e ""
-echo -e "${GREEN}SYSTEM UPDATES SUCCESSFUL${NC}"
+echo -e "${ORANGE}[✓] SYSTEM UPDATES SUCCESSFUL${NC}"
 }
 
 timezone() {
@@ -62,7 +63,7 @@ echo -e "=====================================" | lolcat -a
 echo -e "  AUTOSCRIPT VPS BY MASTER SANGSAKA  " | lolcat -a
 echo -e "=====================================" | lolcat -a
 echo -e ""
-echo -e "${BLUE}>> SET TIMEZONE${NC}"
+echo -e "${CYAN}[+] SET TIMEZONE${NC}"
 sleep 1
 ln -sf /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime > /dev/null 2>&1
 sleep 1
@@ -79,7 +80,7 @@ sleep 1
 date
 sleep 1
 echo -e ""
-echo -e "${GREEN}TIMEZONE SYNC SUCCESSFUL${NC}"
+echo -e "${ORANGE}[✓] TIMEZONE SYNC SUCCESSFUL${NC}"
 }
 
 package() {
@@ -88,42 +89,42 @@ echo -e "=====================================" | lolcat -a
 echo -e "  AUTOSCRIPT VPS BY MASTER SANGSAKA  " | lolcat -a
 echo -e "=====================================" | lolcat -a
 echo -e ""
-echo -e "${BLUE}>> INSTALLING PACKAGES${NC}"
+echo -e "${CYAN}[+] INSTALLING PACKAGES${NC}"
 sleep 1
 apt install curl -y > /dev/null 2>&1
 sleep 1
 echo -e ""
-echo -e "${GREEN}CURL INSTALLED${NC}"
+echo -e "${ORANGE}[✓] CURL INSTALLED${NC}"
 sleep 1
 apt install wget -y > /dev/null 2>&1
 sleep 1
-echo -e "${GREEN}WGET INSTALLED${NC}"
+echo -e "${ORANGE}[✓] WGET INSTALLED${NC}"
 sleep 1
 apt install gir -y > /dev/null 2>&1
 sleep 1
-echo -e "${GREEN}GIT INSTALLED${NC}"
+echo -e "${ORANGE}[✓] GIT INSTALLED${NC}"
 sleep 1
 apt install zip -y > /dev/null 2>&1
 sleep 1
-echo -e "${GREEN}ZIP INSTALLED${NC}"
+echo -e "${ORANGE}[✓] ZIP INSTALLED${NC}"
 sleep 1
 apt install unzip -y > /dev/null 2>&1
 sleep 1
-echo -e "${GREEN}UNZIP INSTALLED${NC}"
+echo -e "${ORANGE}[✓] UNZIP INSTALLED${NC}"
 sleep 1
 apt install tar -y > /dev/null 2>&1
 sleep 1
-echo -e "${GREEN}TAR INSTALLED${NC}"
+echo -e "${ORANGE}[✓] TAR INSTALLED${NC}"
 sleep 1
 apt install ufw -y > /dev/null 2>&1
 sleep 1
-echo -e "${GREEN}UFW INSTALLED${NC}"
+echo -e "${ORANGE}[✓] UFW INSTALLED${NC}"
 sleep 1
 apt install nginx -y > /dev/null 2>&1
 sleep 1
 systemctl enable nginx > /dev/null 2>&1
 sleep 1
-echo -e "${GREEN}NGINX INSTALLED${NC}"
+echo -e "${ORANGE}[✓] NGINX INSTALLED${NC}"
 }
 
 clear
@@ -134,7 +135,7 @@ fi
 
 clear
 echo -e ""
-echo -e "${BLUE}>> AUTOSCRIPT WILL START NOW${NC}"
+echo -e "${CYAN}[+] AUTOSCRIPT WILL START NOW${NC}"
 sleep 3
 clear
 host
@@ -150,16 +151,8 @@ package
 sleep 1
 clear
 echo -e ""
-echo -e "${GREEN}AUTOSCRIPT INSTALLATION DONE${NC}"
+echo -e "${ORANGE}[✓] AUTOSCRIPT INSTALLATION DONE${NC}"
 sleep 1
-echo -e "${GREEN}SYSTEM REBOOT IN${NC} ${BLUE}5${NC} ${GREEN}SECONDS${NC}"
-sleep 1
-echo -e "${BLUE}4${NC}"
-sleep 1 
-echo -e "${BLUE}3${NC}"
-sleep 1 
-echo -e "${BLUE}2${NC}"
-sleep 1 
-echo -e "${BLUE}1${NC}"
-sleep 1 
+echo -e "${CYAN}[+] SYSTEM REBOOT IN 5 SECONDS${NC}"
+sleep 5
 reboot
