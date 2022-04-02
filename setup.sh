@@ -7,24 +7,21 @@ GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 
-# Check root
+# Check System
 clear
 echo -e ""
+echo -e "${BLUE}WAIT SYSTEM CHECK${NC}"
 if [[ $EUID -ne 0 ]]; then
 echo -e "${RED}[+] SORRY, PLEASE RUN THIS SCRIPT USER ROOT!${NC}"
 echo -e ""
 exit 1
 fi
-
-# Install pip lolcat
-#apt install python3-pip -y > /dev/null 2>&1
-#pip install lolcat > /dev/null 2>&1
 if [[ "${ID}" != "ubuntu" ]]; then 
 snap install lolcal > /dev/null 2>&1
-elif [[ "${ID}" != "debian" ]]; then
+else
 apt install python3-pip && pip install lolcat > /dev/null 2>&1
-#systemctl start systemd-timesyncd > /dev/null 2>&1
 fi
+echo -e "${GREEN}[!] OK${NC}"
 
 # Edit /etc/hosts
 ip=$(hostname -I | awk '{print $1}')
