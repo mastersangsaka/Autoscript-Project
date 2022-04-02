@@ -17,12 +17,10 @@ echo -e ""
 exit 1
 fi
 sleep 1
-if [[ "${ID}" != "ubuntu" ]]; then 
-snap install lolcal > /dev/null 2>&1
-else
-apt install python3-pip -y && pip install lolcat -y > /dev/null 2>&1
-fi
+apt install python3-pip -y > /dev/null 2>&1
+pip install lolcat -y > /dev/null 2>&1
 echo -e "${GREEN}[!] OK${NC}"
+sleep 1
 
 # Edit /etc/hosts
 ip=$(hostname -I | awk '{print $1}')
