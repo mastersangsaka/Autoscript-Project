@@ -7,7 +7,7 @@
 
 # Installation
 
-Run the script as *root* :
+Run the script as `$USER root` :
 ```bash
 wget https://raw.githubusercontent.com/mastersangsaka/Autoscript-Project/main/setup.sh && chmod +x setup.sh && ./setup.sh
 ```
